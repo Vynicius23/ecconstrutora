@@ -7,6 +7,7 @@
   <title>Residenciais EC Construtora</title>
   <style>
     * { box-sizing: border-box; }
+
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
@@ -14,13 +15,15 @@
       background: #f9f9f9;
       color: #333;
     }
+
     header {
       background: url('fundo-ec.png') no-repeat center center;
       background-size: contain;
-      aspect-ratio: 16/6;
+      aspect-ratio: 16 / 6;
       width: 100%;
       position: relative;
     }
+
     .fixo-wpp {
       position: fixed;
       bottom: 20px;
@@ -36,7 +39,11 @@
       transition: background-color 0.3s ease;
       z-index: 999;
     }
-    .fixo-wpp:hover { background-color: #1ebe5b; }
+
+    .fixo-wpp:hover {
+      background-color: #1ebe5b;
+    }
+
     .cards-container {
       display: flex;
       flex-wrap: wrap;
@@ -44,6 +51,7 @@
       gap: 30px;
       padding: 40px 20px;
     }
+
     .res-card {
       background: #fff;
       border-radius: 15px;
@@ -55,17 +63,23 @@
       text-align: center;
       cursor: pointer;
     }
-    .res-card:hover { transform: scale(1.02); }
+
+    .res-card:hover {
+      transform: scale(1.02);
+    }
+
     .res-card img {
       width: 100%;
       height: auto;
       object-fit: cover;
     }
+
     .res-card h3 {
       margin: 15px 0 5px;
       font-size: 20px;
       color: #222;
     }
+
     .modal {
       display: none;
       position: fixed;
@@ -74,18 +88,35 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
+      background: rgba(0,0,0,0.85);
+      overflow-y: auto;
+      padding: 60px 20px 40px;
+      color: white;
+    }
+
+    .modal.active {
+      display: block;
+    }
+
+    .modal h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .modal .opcoes {
+      display: flex;
       flex-direction: column;
+      align-items: center;
+      gap: 20px;
     }
-    .modal.active { display: flex; }
-    .modal img {
-      width: 90%;
-      max-width: 800px;
+
+    .modal .opcoes img {
+      width: 100%;
+      max-width: 500px;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
     }
+
     .close-btn {
       position: absolute;
       top: 20px;
@@ -98,11 +129,18 @@
       border-radius: 25px;
       cursor: pointer;
     }
+
     footer {
       background: #000;
       color: white;
       padding: 15px;
       text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .res-card {
+        width: 90%;
+      }
     }
   </style>
 </head>
@@ -113,23 +151,30 @@
   <a class="fixo-wpp" href="https://wa.link/mj87sm" target="_blank">📲 Fale conosco no WhatsApp</a>
 
   <div class="cards-container">
-    <div class="res-card" onclick="abrirModal('fachada.jpg')">
+    <div class="res-card" onclick="abrirPopupResidencial()">
       <img src="fachada.jpg" alt="Residencial Aldo Ferreira">
       <h3>Residencial Aldo Ferreira</h3>
     </div>
-    <div class="res-card" onclick="abrirModal('quarto.jpg')">
+    <div class="res-card">
       <img src="quarto.jpg" alt="Residencial 2">
       <h3>Residencial 2</h3>
     </div>
-    <div class="res-card" onclick="abrirModal('sala.jpg')">
+    <div class="res-card">
       <img src="sala.jpg" alt="Residencial 3">
       <h3>Residencial 3</h3>
     </div>
   </div>
 
-  <div class="modal" id="modal">
-    <button class="close-btn" onclick="fecharModal()">← Voltar</button>
-    <img id="modal-img" src="" alt="Visualização ampliada">
+  <!-- Modal com opções do Residencial Aldo Ferreira -->
+  <div class="modal" id="modalResidencial">
+    <button class="close-btn" onclick="fecharPopupResidencial()">← Voltar</button>
+    <h2>Residencial Aldo Ferreira</h2>
+    <div class="opcoes">
+      <img src="quarto.jpg" alt="Quarto decorado">
+      <img src="sala.jpg" alt="Sala de jantar">
+      <img src="gourmet.jpg" alt="Espaço gourmet">
+      <img src="piscina.jpg" alt="Piscina compartilhada">
+    </div>
   </div>
 
   <footer>
@@ -137,12 +182,12 @@
   </footer>
 
   <script>
-    function abrirModal(imgSrc) {
-      document.getElementById("modal-img").src = imgSrc;
-      document.getElementById("modal").classList.add("active");
+    function abrirPopupResidencial() {
+      document.getElementById("modalResidencial").classList.add("active");
     }
-    function fecharModal() {
-      document.getElementById("modal").classList.remove("active");
+
+    function fecharPopupResidencial() {
+      document.getElementById("modalResidencial").classList.remove("active");
     }
   </script>
 
