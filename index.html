@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Residenciais EC Construtora</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
@@ -12,32 +14,13 @@
       background: #f9f9f9;
       color: #333;
     }
-
-    /* Banner responsivo que mostra 100% da imagem */
     header {
       background: url('fundo-ec.png') no-repeat center center;
       background-size: contain;
-      background-repeat: no-repeat;
-      background-position: top center;
-      height: auto;
-      aspect-ratio: 16 / 6;
+      aspect-ratio: 16/6;
       width: 100%;
       position: relative;
     }
-
-    header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.0); /* Removido escurecimento do banner */
-      z-index: 0;
-    }
-
-    header * {
-      position: relative;
-      z-index: 1;
-    }
-
     .fixo-wpp {
       position: fixed;
       bottom: 20px;
@@ -53,11 +36,7 @@
       transition: background-color 0.3s ease;
       z-index: 999;
     }
-
-    .fixo-wpp:hover {
-      background-color: #1ebe5b;
-    }
-
+    .fixo-wpp:hover { background-color: #1ebe5b; }
     .cards-container {
       display: flex;
       flex-wrap: wrap;
@@ -65,118 +44,67 @@
       gap: 30px;
       padding: 40px 20px;
     }
-
     .res-card {
       background: #fff;
       border-radius: 15px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.06);
       transition: all 0.3s ease;
-      width: 320px;
+      width: 100%;
+      max-width: 500px;
       overflow: hidden;
       text-align: center;
+      cursor: pointer;
     }
-
-    .res-card:hover {
-      transform: scale(1.02);
-    }
-
+    .res-card:hover { transform: scale(1.02); }
     .res-card img {
       width: 100%;
-      height: 200px;
+      height: auto;
       object-fit: cover;
     }
-
     .res-card h3 {
       margin: 15px 0 5px;
       font-size: 20px;
       color: #222;
     }
-
-    .res-card button {
-      margin: 10px;
-      padding: 12px 25px;
-      background: #f58220;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      font-size: 15px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .res-card button:hover {
-      background: #db6c12;
-    }
-
-    .section, .sub-section {
+    .modal {
       display: none;
-      text-align: center;
-      padding: 30px;
-    }
-
-    .section.active, .sub-section.active {
-      display: block;
-    }
-
-    .sub-tabs {
-      display: flex;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
       justify-content: center;
-      flex-wrap: wrap;
-      margin: 20px 0;
-      gap: 12px;
+      align-items: center;
+      flex-direction: column;
     }
-
-    .sub-tabs button {
-      padding: 10px 20px;
-      background-color: #000;
-      color: white;
+    .modal.active { display: flex; }
+    .modal img {
+      width: 90%;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: #fff;
+      color: #000;
+      padding: 10px 18px;
+      font-weight: bold;
       border: none;
-      border-radius: 20px;
-      font-size: 15px;
+      border-radius: 25px;
       cursor: pointer;
     }
-
-    .gallery img {
-      width: 90%;
-      max-width: 700px;
-      border-radius: 15px;
-      margin: 20px auto;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }
-
     footer {
       background: #000;
       color: white;
       padding: 15px;
       text-align: center;
     }
-
-    /* Responsividade para telas menores */
-    @media (max-width: 600px) {
-      .res-card {
-        width: 90%;
-      }
-
-      .fixo-wpp {
-        font-size: 14px;
-        padding: 10px 18px;
-        bottom: 15px;
-        right: 15px;
-      }
-    }
   </style>
-
-  <script>
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    function showSubSection(id) {
-      document.querySelectorAll('.sub-section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-  </script>
 </head>
 <body>
 
@@ -185,54 +113,38 @@
   <a class="fixo-wpp" href="https://wa.link/mj87sm" target="_blank">📲 Fale conosco no WhatsApp</a>
 
   <div class="cards-container">
-    <div class="res-card">
+    <div class="res-card" onclick="abrirModal('fachada.jpg')">
       <img src="fachada.jpg" alt="Residencial Aldo Ferreira">
       <h3>Residencial Aldo Ferreira</h3>
-      <button onclick="showSection('aldo')">Ver detalhes</button>
     </div>
-    <div class="res-card">
+    <div class="res-card" onclick="abrirModal('quarto.jpg')">
       <img src="quarto.jpg" alt="Residencial 2">
       <h3>Residencial 2</h3>
-      <button onclick="showSection('res2')">Ver detalhes</button>
     </div>
-    <div class="res-card">
+    <div class="res-card" onclick="abrirModal('sala.jpg')">
       <img src="sala.jpg" alt="Residencial 3">
       <h3>Residencial 3</h3>
-      <button onclick="showSection('res3')">Ver detalhes</button>
     </div>
   </div>
 
-  <div class="section" id="aldo">
-    <div class="sub-tabs">
-      <button onclick="showSubSection('quarto')">Quarto</button>
-      <button onclick="showSubSection('sala')">Sala de Jantar</button>
-      <button onclick="showSubSection('gourmet')">Espaço Gourmet</button>
-      <button onclick="showSubSection('piscina')">Piscina</button>
-    </div>
-    <div class="sub-section" id="quarto">
-      <img src="quarto.jpg" alt="Quarto decorado">
-    </div>
-    <div class="sub-section" id="sala">
-      <img src="sala.jpg" alt="Sala de jantar">
-    </div>
-    <div class="sub-section" id="gourmet">
-      <img src="gourmet.jpg" alt="Espaço gourmet">
-    </div>
-    <div class="sub-section" id="piscina">
-      <img src="piscina.jpg" alt="Piscina">
-    </div>
-  </div>
-
-  <div class="section" id="res2">
-    <h2>Residencial 2 (Em breve)</h2>
-  </div>
-  <div class="section" id="res3">
-    <h2>Residencial 3 (Em breve)</h2>
+  <div class="modal" id="modal">
+    <button class="close-btn" onclick="fecharModal()">← Voltar</button>
+    <img id="modal-img" src="" alt="Visualização ampliada">
   </div>
 
   <footer>
     <p>&copy; 2025 - EC Construtora - Todos os direitos reservados</p>
   </footer>
+
+  <script>
+    function abrirModal(imgSrc) {
+      document.getElementById("modal-img").src = imgSrc;
+      document.getElementById("modal").classList.add("active");
+    }
+    function fecharModal() {
+      document.getElementById("modal").classList.remove("active");
+    }
+  </script>
 
 </body>
 </html>
