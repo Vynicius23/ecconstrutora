@@ -206,10 +206,10 @@
     <button class="close-btn" onclick="fecharPopupResidencial()">← Voltar</button>
     <h2>Residencial Aldo Ferreira</h2>
     <div class="opcoes">
-      <img src="quarto.jpg" alt="Quarto decorado">
-      <img src="sala.jpg" alt="Sala de jantar">
-      <img src="gourmet.jpg" alt="Espaço gourmet">
-      <img src="piscina.jpg" alt="Piscina">
+      <img src="quarto.jpg" alt="Quarto decorado" onclick="abrirImagem(this.src)">
+      <img src="sala.jpg" alt="Sala de jantar" onclick="abrirImagem(this.src)">
+      <img src="gourmet.jpg" alt="Espaço gourmet" onclick="abrirImagem(this.src)">
+      <img src="piscina.jpg" alt="Piscina" onclick="abrirImagem(this.src)">
     </div>
   </div>
 
@@ -250,9 +250,7 @@
       imgOverlay.onclick = () => document.body.removeChild(imgOverlay);
       document.body.appendChild(imgOverlay);
     }
+  </script>
 
-    window.onload = () => {
-      const imagens = document.querySelectorAll("#modalResidencial .opcoes img");
-      imagens.forEach(img => {
-        img.addEventListener("click", () => abrirImagem(img.src));
-      });
+</body>
+</html>
